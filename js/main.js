@@ -15,17 +15,19 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // Mobile nav toggle
-(function(){
+(function () {
     const toggle = document.getElementById('nav-toggle');
     const nav = document.getElementById('site-nav');
     if (!toggle || !nav) return;
     toggle.addEventListener('click', () => {
         const isOpen = nav.classList.toggle('open');
         toggle.setAttribute('aria-expanded', String(isOpen));
+        document.body.classList.toggle('nav-open', isOpen);
     });
-    nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
         nav.classList.remove('open');
-        toggle.setAttribute('aria-expanded','false');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('nav-open');
     }));
 })();
 
