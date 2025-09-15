@@ -1,13 +1,13 @@
 {
     "caseStudies": [
         {
-            "title": "Fintrack — Personal Finance App",
-            "subtitle": "Redesigned onboarding and budgeting flows for iOS & Android",
+            "title": "GeoStream — Web Design",
+            "subtitle": "Responsive web design concept for streaming geospatial content",
             "year": "2024",
             "tags": [
-                "Mobile UX",
-                "Design System",
-                "Proto"
+                "Web UI",
+                "Illustration",
+                "Brand"
             ],
             "cover": "assets/placeholder-16x9.svg",
             "link": "#"
@@ -25,13 +25,13 @@
             "link": "#"
         },
         {
-            "title": "Foodie — Ordering Experience",
-            "subtitle": "Service blueprint to polished flows, boosting conversion +18%",
-            "year": "2022",
+            "title": "React Native — Mobile App",
+            "subtitle": "Cross‑platform app built with React Native, focusing on clean UI",
+            "year": "2023",
             "tags": [
-                "Research",
-                "Flows",
-                "Usability"
+                "React Native",
+                "Mobile",
+                "UI"
             ],
             "cover": "assets/placeholder-16x9.svg",
             "link": "#"
