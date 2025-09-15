@@ -241,8 +241,13 @@ img {
     width: 100%;
 }
 
-.section-head > * { margin: 0; }
-.section-head .muted { align-self: flex-start; }
+.section-head>* {
+    margin: 0;
+}
+
+.section-head .muted {
+    align-self: flex-start;
+}
 
 .muted {
     color: var(--muted);
@@ -542,7 +547,9 @@ label {
 
 .ach-body {
     position: relative;
+    transition: opacity .3s ease, transform .3s ease;
 }
+.ach-card:hover .ach-body { opacity: 0; transform: translateY(6px); }
 
 .card.highlight {
     background: linear-gradient(180deg, color-mix(in oklab, var(--brand) 10%, transparent), transparent), var(--card);
