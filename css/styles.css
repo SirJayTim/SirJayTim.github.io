@@ -190,6 +190,21 @@ img {
     color: var(--muted);
 }
 
+/* Responsive typography */
+h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.1;
+}
+h2 {
+    font-size: clamp(1.4rem, 3.2vw, 2rem);
+}
+h3 {
+    font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+}
+p, li, a, button, input, textarea, label {
+    font-size: clamp(0.95rem, 1.2vw, 1rem);
+}
+
 .grid {
     display: grid;
     gap: 24px;
@@ -364,19 +379,24 @@ img {
     color: white;
 }
 
+
+/* Uniform gallery grid */
 .masonry {
-    columns: 4 280px;
-    column-gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
 }
 
 .masonry-item {
-    break-inside: avoid;
-    margin-bottom: 16px;
     position: relative;
+    aspect-ratio: 4/5;
+    overflow: hidden;
 }
 
 .masonry-item img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 12px;
     border: 1px solid var(--outline);
     background: var(--chip);
@@ -396,6 +416,16 @@ img {
     color: var(--muted);
     margin-top: 6px;
 }
+
+/* Micro-animations */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.masonry-item { animation: fadeUp .6s ease both; }
+.project-card { animation: fadeUp .6s ease both; }
+
 
 .card {
     background: var(--card);

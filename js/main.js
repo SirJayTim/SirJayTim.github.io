@@ -140,10 +140,28 @@ function initHero3D() {
     scene.add(light);
     scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 
-    const geometry = new THREE.IcosahedronGeometry(1.1, 2);
-    const material = new THREE.MeshStandardMaterial({ color: 0x7c5cff, metalness: 0.25, roughness: 0.35, flatShading: true });
-    const mesh = new THREE.Mesh(geometry, material);
-    scene.add(mesh);
+    // Wireframe Earth
+    const earthGroup = new THREE.Group();
+    const sphere = new THREE.SphereGeometry(1.1, 48, 32);
+    const wire = new THREE.WireframeGeometry(sphere);
+    const line = new THREE.LineSegments(wire, new THREE.LineBasicMaterial({ color: 0x7c5cff, opacity: 0.9, transparent: true }));
+    earthGroup.add(line);
+
+    // Equator ring
+    const equatorGeo = new THREE.TorusGeometry(1.1, 0.005, 8, 128);
+    const equatorMat = new THREE.MeshBasicMaterial({ color: 0x7c5cff, opacity: 0.6, transparent: true });
+    const equator = new THREE.Mesh(equatorGeo, equatorMat);
+    equator.rotation.x = Math.PI / 2;
+    earthGroup.add(equator);
+
+    // Subtle glow sphere
+    const glow = new THREE.Mesh(
+        new THREE.SphereGeometry(1.12, 32, 16),
+        new THREE.MeshBasicMaterial({ color: 0x7c5cff, transparent: true, opacity: 0.08 })
+    );
+    earthGroup.add(glow);
+
+    scene.add(earthGroup);
 
     let mouseX = 0, mouseY = 0;
     container.addEventListener('pointermove', (e) => {
@@ -163,8 +181,8 @@ function initHero3D() {
 
     function animate() {
         requestAnimationFrame(animate);
-        mesh.rotation.x += 0.003 + (mouseY - mesh.rotation.x) * 0.02;
-        mesh.rotation.y += 0.004 + (mouseX - mesh.rotation.y) * 0.02;
+        earthGroup.rotation.x += 0.003 + (mouseY - earthGroup.rotation.x) * 0.02;
+        earthGroup.rotation.y += 0.004 + (mouseX - earthGroup.rotation.y) * 0.02;
         renderer.render(scene, camera);
     }
     animate();
