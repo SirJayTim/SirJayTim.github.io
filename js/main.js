@@ -14,6 +14,21 @@
 // Footer year
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// Mobile nav toggle
+(function(){
+    const toggle = document.getElementById('nav-toggle');
+    const nav = document.getElementById('site-nav');
+    if (!toggle || !nav) return;
+    toggle.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+    }));
+})();
+
 // Smooth scroll offset fix for sticky header
 document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
