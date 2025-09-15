@@ -157,26 +157,25 @@ function initHero3D() {
     scene.add(light);
     scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 
-    // Wireframe Earth
+    // Textured Earth with clouds
     const earthGroup = new THREE.Group();
-    const sphere = new THREE.SphereGeometry(1.1, 48, 32);
-    const wire = new THREE.WireframeGeometry(sphere);
-    const line = new THREE.LineSegments(wire, new THREE.LineBasicMaterial({ color: 0x7c5cff, opacity: 0.9, transparent: true }));
-    earthGroup.add(line);
+    const loader = new THREE.TextureLoader();
+    const earthTexture = loader.load('https://raw.githubusercontent.com/rajdeepbharati/threejs-earth-assets/main/earth-day.jpg');
+    const earthBump = loader.load('https://raw.githubusercontent.com/rajdeepbharati/threejs-earth-assets/main/earth-bump.jpg');
+    const earthSpec = loader.load('https://raw.githubusercontent.com/rajdeepbharati/threejs-earth-assets/main/earth-spec.jpg');
+    const cloudTexture = loader.load('https://raw.githubusercontent.com/rajdeepbharati/threejs-earth-assets/main/earth-clouds.png');
 
-    // Equator ring
-    const equatorGeo = new THREE.TorusGeometry(1.1, 0.005, 8, 128);
-    const equatorMat = new THREE.MeshBasicMaterial({ color: 0x7c5cff, opacity: 0.6, transparent: true });
-    const equator = new THREE.Mesh(equatorGeo, equatorMat);
-    equator.rotation.x = Math.PI / 2;
-    earthGroup.add(equator);
-
-    // Subtle glow sphere
-    const glow = new THREE.Mesh(
-        new THREE.SphereGeometry(1.12, 32, 16),
-        new THREE.MeshBasicMaterial({ color: 0x7c5cff, transparent: true, opacity: 0.08 })
+    const earthMesh = new THREE.Mesh(
+        new THREE.SphereGeometry(1.1, 64, 64),
+        new THREE.MeshPhongMaterial({ map: earthTexture, bumpMap: earthBump, bumpScale: 0.03, specularMap: earthSpec, specular: new THREE.Color('grey'), shininess: 8 })
     );
-    earthGroup.add(glow);
+    earthGroup.add(earthMesh);
+
+    const clouds = new THREE.Mesh(
+        new THREE.SphereGeometry(1.12, 64, 64),
+        new THREE.MeshLambertMaterial({ map: cloudTexture, transparent: true, opacity: 0.4 })
+    );
+    earthGroup.add(clouds);
 
     scene.add(earthGroup);
 
@@ -198,8 +197,9 @@ function initHero3D() {
 
     function animate() {
         requestAnimationFrame(animate);
-        earthGroup.rotation.x += 0.003 + (mouseY - earthGroup.rotation.x) * 0.02;
-        earthGroup.rotation.y += 0.004 + (mouseX - earthGroup.rotation.y) * 0.02;
+        earthGroup.rotation.x += 0.002 + (mouseY - earthGroup.rotation.x) * 0.02;
+        earthGroup.rotation.y += 0.003 + (mouseX - earthGroup.rotation.y) * 0.02;
+        clouds.rotation.y += 0.0008;
         renderer.render(scene, camera);
     }
     animate();
