@@ -233,6 +233,13 @@ img {
     margin-bottom: 24px;
 }
 
+/* Force left alignment for headings/subtitles */
+.section-head h2,
+.section-head p {
+    text-align: left;
+    width: 100%;
+}
+
 .muted {
     color: var(--muted);
 }
