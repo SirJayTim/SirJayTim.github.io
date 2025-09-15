@@ -212,7 +212,9 @@ img {
     filter: brightness(1.03);
 }
 
-.button:hover { transform: translateY(-1px); }
+.button:hover {
+    transform: translateY(-1px);
+}
 
 .section {
     padding: clamp(56px, 8vw, 96px) 0;
@@ -447,7 +449,7 @@ label {
 
 .masonry-item {
     position: relative;
-    aspect-ratio: 4/5;
+    aspect-ratio: 1/1;
     overflow: hidden;
 }
 
