@@ -123,6 +123,54 @@ const style = document.createElement('style');
 style.textContent = `.reveal{opacity:.001;transform:translateY(12px)}.reveal.in{opacity:1;transform:none;transition:opacity .5s ease, transform .5s ease}`;
 document.head.appendChild(style);
 
+// 3D hero using Three.js — subtle interactive shape to keep perf high
+function initHero3D() {
+    const container = document.getElementById('hero-canvas');
+    if (!container || !window.THREE) return;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 100);
+    camera.position.z = 3.2;
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    const light = new THREE.DirectionalLight(0xffffff, 1.0);
+    light.position.set(2, 2, 3);
+    scene.add(light);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+
+    const geometry = new THREE.IcosahedronGeometry(1.1, 2);
+    const material = new THREE.MeshStandardMaterial({ color: 0x7c5cff, metalness: 0.25, roughness: 0.35, flatShading: true });
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    let mouseX = 0, mouseY = 0;
+    container.addEventListener('pointermove', (e) => {
+        const rect = container.getBoundingClientRect();
+        mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * Math.PI * 0.1;
+        mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * Math.PI * 0.1;
+    });
+
+    function onResize() {
+        const w = container.clientWidth;
+        const h = container.clientHeight;
+        renderer.setSize(w, h);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+    }
+    window.addEventListener('resize', onResize);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        mesh.rotation.x += 0.003 + (mouseY - mesh.rotation.x) * 0.02;
+        mesh.rotation.y += 0.004 + (mouseX - mesh.rotation.y) * 0.02;
+        renderer.render(scene, camera);
+    }
+    animate();
+}
+
 loadData();
+window.addEventListener('load', initHero3D);
 
 

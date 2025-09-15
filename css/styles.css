@@ -259,6 +259,16 @@ img {
     box-shadow: 0 10px 40px color-mix(in oklab, var(--brand) 20%, transparent);
 }
 
+.hero-canvas {
+    width: min(560px, 90%);
+    height: 380px;
+    border-radius: 20px;
+    border: 1px solid var(--outline);
+    background: radial-gradient(120% 120% at 0% 0%, color-mix(in oklab, var(--brand) 18%, transparent), transparent), var(--chip);
+    overflow: hidden;
+    box-shadow: 0 10px 40px color-mix(in oklab, var(--brand) 20%, transparent);
+}
+
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -288,6 +298,33 @@ img {
     aspect-ratio: 16/9;
     background: var(--chip);
     border-bottom: 1px solid var(--outline);
+}
+
+.project-media {
+    position: relative;
+    overflow: hidden;
+}
+
+.project-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent, color-mix(in oklab, black 22%, transparent));
+    opacity: 0;
+    transition: opacity .35s ease;
+}
+
+.project-card:hover .project-media::after {
+    opacity: 1;
+}
+
+.project-card:hover {
+    transform: translateY(-2px);
+    transition: transform .25s ease;
+}
+
+.project-card a {
+    display: block;
 }
 
 .project-body {
@@ -343,6 +380,15 @@ img {
     border-radius: 12px;
     border: 1px solid var(--outline);
     background: var(--chip);
+}
+
+.masonry-item img {
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.masonry-item:hover img {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 10px 30px color-mix(in oklab, var(--brand) 20%, transparent);
 }
 
 .masonry-item .caption {

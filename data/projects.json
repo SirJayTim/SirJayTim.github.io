@@ -9,7 +9,7 @@
                 "Design System",
                 "Proto"
             ],
-            "cover": "assets/fintrack-cover.jpg",
+            "cover": "assets/placeholder-16x9.svg",
             "link": "#"
         },
         {
@@ -21,7 +21,7 @@
                 "Accessibility",
                 "Tokens"
             ],
-            "cover": "assets/deskly-cover.jpg",
+            "cover": "assets/placeholder-16x9.svg",
             "link": "#"
         },
         {
@@ -33,43 +33,43 @@
                 "Flows",
                 "Usability"
             ],
-            "cover": "assets/foodie-cover.jpg",
+            "cover": "assets/placeholder-16x9.svg",
             "link": "#"
         }
     ],
     "gallery": [
         {
-            "src": "assets/illu-1.jpg",
+            "src": "assets/placeholder-portrait.svg",
             "alt": "Editorial illustration 1",
             "caption": "City Weekender",
             "category": "editorial"
         },
         {
-            "src": "assets/illu-2.jpg",
+            "src": "assets/placeholder-portrait.svg",
             "alt": "Editorial illustration 2",
             "caption": "Night Market",
             "category": "editorial"
         },
         {
-            "src": "assets/illu-3.jpg",
+            "src": "assets/placeholder-portrait.svg",
             "alt": "Concept art 1",
             "caption": "Forest Spirit",
             "category": "concept"
         },
         {
-            "src": "assets/illu-4.jpg",
+            "src": "assets/placeholder-portrait.svg",
             "alt": "Concept art 2",
             "caption": "Synth Rider",
             "category": "concept"
         },
         {
-            "src": "assets/illu-5.jpg",
+            "src": "assets/placeholder-portrait.svg",
             "alt": "3D render 1",
             "caption": "Soft Shapes",
             "category": "3d"
         },
         {
-            "src": "assets/illu-6.jpg",
+            "src": "assets/placeholder-portrait.svg",
             "alt": "3D render 2",
             "caption": "Glass Grid",
             "category": "3d"
