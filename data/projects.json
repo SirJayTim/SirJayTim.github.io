@@ -1,0 +1,78 @@
+{
+    "caseStudies": [
+        {
+            "title": "Fintrack — Personal Finance App",
+            "subtitle": "Redesigned onboarding and budgeting flows for iOS & Android",
+            "year": "2024",
+            "tags": [
+                "Mobile UX",
+                "Design System",
+                "Proto"
+            ],
+            "cover": "assets/fintrack-cover.jpg",
+            "link": "#"
+        },
+        {
+            "title": "Deskly — SaaS Dashboard",
+            "subtitle": "Accessible web UI kit and dark mode for B2B analytics",
+            "year": "2023",
+            "tags": [
+                "Web UI",
+                "Accessibility",
+                "Tokens"
+            ],
+            "cover": "assets/deskly-cover.jpg",
+            "link": "#"
+        },
+        {
+            "title": "Foodie — Ordering Experience",
+            "subtitle": "Service blueprint to polished flows, boosting conversion +18%",
+            "year": "2022",
+            "tags": [
+                "Research",
+                "Flows",
+                "Usability"
+            ],
+            "cover": "assets/foodie-cover.jpg",
+            "link": "#"
+        }
+    ],
+    "gallery": [
+        {
+            "src": "assets/illu-1.jpg",
+            "alt": "Editorial illustration 1",
+            "caption": "City Weekender",
+            "category": "editorial"
+        },
+        {
+            "src": "assets/illu-2.jpg",
+            "alt": "Editorial illustration 2",
+            "caption": "Night Market",
+            "category": "editorial"
+        },
+        {
+            "src": "assets/illu-3.jpg",
+            "alt": "Concept art 1",
+            "caption": "Forest Spirit",
+            "category": "concept"
+        },
+        {
+            "src": "assets/illu-4.jpg",
+            "alt": "Concept art 2",
+            "caption": "Synth Rider",
+            "category": "concept"
+        },
+        {
+            "src": "assets/illu-5.jpg",
+            "alt": "3D render 1",
+            "caption": "Soft Shapes",
+            "category": "3d"
+        },
+        {
+            "src": "assets/illu-6.jpg",
+            "alt": "3D render 2",
+            "caption": "Glass Grid",
+            "category": "3d"
+        }
+    ]
+}
