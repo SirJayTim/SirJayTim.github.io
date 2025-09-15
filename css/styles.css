@@ -61,6 +61,37 @@ body {
     background-image: radial-gradient(120% 120% at 0% 0%, color-mix(in oklab, var(--brand) 8%, transparent), transparent);
 }
 
+/* Light theme: subtle per-section tints for page differentiation */
+[data-theme="light"] #home {
+    background:
+        radial-gradient(140% 120% at 10% 0%, color-mix(in oklab, var(--brand) 10%, transparent), transparent);
+}
+
+[data-theme="light"] #work {
+    background:
+        linear-gradient(0deg, color-mix(in oklab, #7bd3ff 8%, transparent), transparent), var(--bg);
+}
+
+[data-theme="light"] #gallery.section.alt {
+    background:
+        linear-gradient(0deg, color-mix(in oklab, #ffe08a 10%, transparent), transparent), var(--bg-elev);
+}
+
+[data-theme="light"] #achievements.section.alt {
+    background:
+        linear-gradient(0deg, color-mix(in oklab, #ff9bbb 10%, transparent), transparent), var(--bg-elev);
+}
+
+[data-theme="light"] #about {
+    background:
+        linear-gradient(0deg, color-mix(in oklab, #b3ffcc 8%, transparent), transparent), var(--bg);
+}
+
+[data-theme="light"] #contact.section.alt {
+    background:
+        linear-gradient(0deg, color-mix(in oklab, #9ec5ff 10%, transparent), transparent), var(--bg-elev);
+}
+
 img {
     max-width: 100%;
     display: block;
