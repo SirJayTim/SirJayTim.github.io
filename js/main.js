@@ -140,44 +140,76 @@ const style = document.createElement('style');
 style.textContent = `.reveal{opacity:.001;transform:translateY(12px)}.reveal.in{opacity:1;transform:none;transition:opacity .5s ease, transform .5s ease}`;
 document.head.appendChild(style);
 
-// 3D hero using Three.js — subtle interactive shape to keep perf high
+// 3D hero using Three.js — interactive black hole scene
 function initHero3D() {
     const container = document.getElementById('hero-canvas');
     if (!container || !window.THREE) return;
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 100);
+    const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 200);
     camera.position.z = 3.2;
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(container.clientWidth, container.clientHeight);
     container.appendChild(renderer.domElement);
 
-    const light = new THREE.DirectionalLight(0xffffff, 1.0);
-    light.position.set(2, 2, 3);
-    scene.add(light);
-    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+    // Utility: generate a soft radial gradient texture on the fly
+    function makeRadialTexture(innerColor, outerColor) {
+        const size = 256;
+        const canvas = document.createElement('canvas');
+        canvas.width = size; canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+        grad.addColorStop(0, innerColor);
+        grad.addColorStop(1, outerColor);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, size, size);
+        const tex = new THREE.Texture(canvas);
+        tex.needsUpdate = true;
+        return tex;
+    }
 
-    // Textured Earth with clouds
-    const earthGroup = new THREE.Group();
-    const loader = new THREE.TextureLoader();
-    const earthTexture = loader.load('https://raw.githubusercontent.com/rajdeepbharati/threejs-earth-assets/main/earth-day.jpg');
-    const earthBump = loader.load('https://raw.githubusercontent.com/rajdeepbharati/threejs-earth-assets/main/earth-bump.jpg');
-    const earthSpec = loader.load('https://raw.githubusercontent.com/rajdeepbharati/threejs-earth-assets/main/earth-spec.jpg');
-    const cloudTexture = loader.load('https://raw.githubusercontent.com/rajdeepbharati/threejs-earth-assets/main/earth-clouds.png');
+    // Black hole group
+    const holeGroup = new THREE.Group();
 
-    const earthMesh = new THREE.Mesh(
-        new THREE.SphereGeometry(1.1, 64, 64),
-        new THREE.MeshPhongMaterial({ map: earthTexture, bumpMap: earthBump, bumpScale: 0.03, specularMap: earthSpec, specular: new THREE.Color('grey'), shininess: 8 })
+    // Event horizon (pure black, no lighting required)
+    const horizon = new THREE.Mesh(
+        new THREE.SphereGeometry(1.0, 64, 64),
+        new THREE.MeshBasicMaterial({ color: 0x000000 })
     );
-    earthGroup.add(earthMesh);
+    holeGroup.add(horizon);
 
-    const clouds = new THREE.Mesh(
-        new THREE.SphereGeometry(1.12, 64, 64),
-        new THREE.MeshLambertMaterial({ map: cloudTexture, transparent: true, opacity: 0.4 })
+    // Accretion disk using a glowing ring
+    const diskTexture = makeRadialTexture('rgba(255, 180, 80, 0.9)', 'rgba(255, 120, 40, 0.0)');
+    const disk = new THREE.Mesh(
+        new THREE.RingGeometry(1.2, 1.9, 128),
+        new THREE.MeshBasicMaterial({ map: diskTexture, transparent: true, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending })
     );
-    earthGroup.add(clouds);
+    disk.rotation.x = Math.PI / 2.2;
+    holeGroup.add(disk);
 
-    scene.add(earthGroup);
+    // Relativistic glow halo as a sprite
+    const haloTexture = makeRadialTexture('rgba(255, 200, 120, 0.25)', 'rgba(0,0,0,0)');
+    const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: haloTexture, color: 0xffffff, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+    halo.scale.set(4.2, 4.2, 1);
+    holeGroup.add(halo);
+
+    // Starfield background
+    const starGeometry = new THREE.BufferGeometry();
+    const starCount = 800;
+    const positions = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount; i++) {
+        const radius = 20 + Math.random() * 60;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+        positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+        positions[i * 3 + 2] = radius * Math.cos(phi);
+    }
+    starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const stars = new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: 0xffffff, size: 0.02, sizeAttenuation: true }));
+    scene.add(stars);
+
+    scene.add(holeGroup);
 
     let mouseX = 0, mouseY = 0;
     container.addEventListener('pointermove', (e) => {
@@ -189,14 +221,14 @@ function initHero3D() {
     // Drag to rotate
     let isDragging = false, lastX = 0, lastY = 0;
     container.addEventListener('pointerdown', (e) => { isDragging = true; lastX = e.clientX; lastY = e.clientY; container.setPointerCapture(e.pointerId); });
-    container.addEventListener('pointerup',   (e) => { isDragging = false; container.releasePointerCapture(e.pointerId); });
-    container.addEventListener('pointerleave',() => { isDragging = false; });
+    container.addEventListener('pointerup', (e) => { isDragging = false; container.releasePointerCapture(e.pointerId); });
+    container.addEventListener('pointerleave', () => { isDragging = false; });
     container.addEventListener('pointermove', (e) => {
         if (!isDragging) return;
         const dx = e.clientX - lastX;
         const dy = e.clientY - lastY;
-        earthGroup.rotation.y += dx * 0.005;
-        earthGroup.rotation.x += dy * 0.005;
+        holeGroup.rotation.y += dx * 0.005;
+        holeGroup.rotation.x += dy * 0.005;
         lastX = e.clientX; lastY = e.clientY;
     });
 
@@ -211,9 +243,10 @@ function initHero3D() {
 
     function animate() {
         requestAnimationFrame(animate);
-        earthGroup.rotation.x += 0.002 + (mouseY - earthGroup.rotation.x) * 0.02;
-        earthGroup.rotation.y += 0.003 + (mouseX - earthGroup.rotation.y) * 0.02;
-        clouds.rotation.y += 0.0008;
+        holeGroup.rotation.x += 0.0015 + (mouseY - holeGroup.rotation.x) * 0.02;
+        holeGroup.rotation.y += 0.0025 + (mouseX - holeGroup.rotation.y) * 0.02;
+        disk.rotation.z += 0.004; // disk spin
+        stars.rotation.y += 0.0005;
         renderer.render(scene, camera);
     }
     animate();
