@@ -135,8 +135,23 @@ img {
 }
 
 /* Social icon buttons */
-.social .icon { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--outline); background: var(--chip); color: var(--text); transition: transform .2s ease, background .2s ease; }
-.social .icon:hover { transform: translateY(-1px); background: color-mix(in oklab, var(--chip) 60%, transparent); }
+.social .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid var(--outline);
+    background: var(--chip);
+    color: var(--text);
+    transition: transform .2s ease, background .2s ease;
+}
+
+.social .icon:hover {
+    transform: translateY(-1px);
+    background: color-mix(in oklab, var(--chip) 60%, transparent);
+}
 
 /* Mobile nav */
 .mobile-only {

@@ -186,6 +186,20 @@ function initHero3D() {
         mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * Math.PI * 0.1;
     });
 
+    // Drag to rotate
+    let isDragging = false, lastX = 0, lastY = 0;
+    container.addEventListener('pointerdown', (e) => { isDragging = true; lastX = e.clientX; lastY = e.clientY; container.setPointerCapture(e.pointerId); });
+    container.addEventListener('pointerup',   (e) => { isDragging = false; container.releasePointerCapture(e.pointerId); });
+    container.addEventListener('pointerleave',() => { isDragging = false; });
+    container.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - lastX;
+        const dy = e.clientY - lastY;
+        earthGroup.rotation.y += dx * 0.005;
+        earthGroup.rotation.x += dy * 0.005;
+        lastX = e.clientX; lastY = e.clientY;
+    });
+
     function onResize() {
         const w = container.clientWidth;
         const h = container.clientHeight;
