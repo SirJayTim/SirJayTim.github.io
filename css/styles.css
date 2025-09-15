@@ -195,13 +195,22 @@ h1 {
     font-size: clamp(2rem, 5vw, 3.2rem);
     line-height: 1.1;
 }
+
 h2 {
     font-size: clamp(1.4rem, 3.2vw, 2rem);
 }
+
 h3 {
     font-size: clamp(1.1rem, 2.4vw, 1.35rem);
 }
-p, li, a, button, input, textarea, label {
+
+p,
+li,
+a,
+button,
+input,
+textarea,
+label {
     font-size: clamp(0.95rem, 1.2vw, 1rem);
 }
 
@@ -419,12 +428,24 @@ p, li, a, button, input, textarea, label {
 
 /* Micro-animations */
 @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.masonry-item { animation: fadeUp .6s ease both; }
-.project-card { animation: fadeUp .6s ease both; }
+.masonry-item {
+    animation: fadeUp .6s ease both;
+}
+
+.project-card {
+    animation: fadeUp .6s ease both;
+}
 
 
 .card {
