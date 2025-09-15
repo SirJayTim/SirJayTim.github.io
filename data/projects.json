@@ -39,40 +39,40 @@
     ],
     "gallery": [
         {
-            "src": "assets/placeholder-portrait.svg",
-            "alt": "Editorial illustration 1",
-            "caption": "City Weekender",
-            "category": "editorial"
+            "src": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop",
+            "alt": "Flat illustration sample",
+            "caption": "Illustration Style A",
+            "category": "illustration"
         },
         {
-            "src": "assets/placeholder-portrait.svg",
-            "alt": "Editorial illustration 2",
-            "caption": "Night Market",
-            "category": "editorial"
+            "src": "https://images.unsplash.com/photo-1529336953121-ad5a0d43d0f5?q=80&w=1200&auto=format&fit=crop",
+            "alt": "Branding mockup sample",
+            "caption": "Branding System",
+            "category": "branding"
         },
         {
-            "src": "assets/placeholder-portrait.svg",
-            "alt": "Concept art 1",
-            "caption": "Forest Spirit",
-            "category": "concept"
+            "src": "https://images.unsplash.com/photo-1557800636-894a64c1696f?q=80&w=1200&auto=format&fit=crop",
+            "alt": "UI dashboard sample",
+            "caption": "Dashboard UI",
+            "category": "ui"
         },
         {
-            "src": "assets/placeholder-portrait.svg",
-            "alt": "Concept art 2",
-            "caption": "Synth Rider",
-            "category": "concept"
+            "src": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
+            "alt": "Mobile UI sample",
+            "caption": "Mobile App UI",
+            "category": "ui"
         },
         {
-            "src": "assets/placeholder-portrait.svg",
-            "alt": "3D render 1",
-            "caption": "Soft Shapes",
-            "category": "3d"
+            "src": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&auto=format&fit=crop",
+            "alt": "Logo and brand assets sample",
+            "caption": "Logo Suite",
+            "category": "branding"
         },
         {
-            "src": "assets/placeholder-portrait.svg",
-            "alt": "3D render 2",
-            "caption": "Glass Grid",
-            "category": "3d"
+            "src": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop",
+            "alt": "Illustration composition sample",
+            "caption": "Illustration Style B",
+            "category": "illustration"
         }
     ]
 }
