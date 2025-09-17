@@ -256,3 +256,19 @@ loadData();
 window.addEventListener('load', initHero3D);
 
 
+
+// Contact form: open prefilled email via mailto (works on GitHub Pages)
+(function () {
+    const form = document.querySelector('form[name="contact"]');
+    if (!form) return;
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = (form.querySelector('#name') || {}).value || '';
+        const email = (form.querySelector('#email') || {}).value || '';
+        const message = (form.querySelector('#message') || {}).value || '';
+        const subject = `Portfolio contact from ${name || 'someone'}`;
+        const bodyLines = [message, '', `From: ${name}`, `Email: ${email}`].join('\n');
+        const mailto = `mailto:cennedyjay@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines)}`;
+        window.location.href = mailto;
+    });
+})();
