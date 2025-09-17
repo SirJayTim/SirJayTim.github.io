@@ -258,42 +258,18 @@ window.addEventListener('load', initHero3D);
 
 
 // Contact form: open prefilled email via mailto (works on GitHub Pages)
+// Contact form: open prefilled email via mailto (works on static hosting)
 (function () {
-    const form = document.getElementById('contact-form');
+    const form = document.querySelector('form[name="contact"]');
     if (!form) return;
-    function setSubmitting(isSubmitting) {
-        const btn = form.querySelector('button[type="submit"]');
-        if (!btn) return;
-        btn.disabled = isSubmitting;
-        btn.textContent = isSubmitting ? 'Sending…' : 'Send';
-    }
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const serviceId = form.getAttribute('data-service-id');
-        const templateId = form.getAttribute('data-template-id');
-        const publicKey = form.getAttribute('data-public-key');
-        if (!serviceId || !templateId || !publicKey) {
-            alert('Email service is not configured.');
-            return;
-        }
-        try {
-            setSubmitting(true);
-            if (window.emailjs && emailjs.init) {
-                emailjs.init({ publicKey });
-            }
-            const templateParams = {
-                from_name: form.querySelector('#name')?.value || '',
-                reply_to: form.querySelector('#email')?.value || '',
-                message: form.querySelector('#message')?.value || ''
-            };
-            await emailjs.send(serviceId, templateId, templateParams);
-            form.reset();
-            alert('Thanks! Your message was sent.');
-        } catch (err) {
-            console.error('EmailJS failed', err);
-            alert('Sorry, something went wrong. Please try again later.');
-        } finally {
-            setSubmitting(false);
-        }
+        const name = (form.querySelector('#name') || {}).value || '';
+        const email = (form.querySelector('#email') || {}).value || '';
+        const message = (form.querySelector('#message') || {}).value || '';
+        const subject = `Portfolio contact from ${name || 'someone'}`;
+        const bodyLines = [message, '', `From: ${name}`, `Email: ${email}`].join('\n');
+        const mailto = `mailto:cennedyjay@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines)}`;
+        window.location.href = mailto;
     });
 })();
